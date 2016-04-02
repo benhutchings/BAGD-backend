@@ -407,6 +407,7 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
 
 
+
 // WTS
 // function student_data_prepare_post( $data, $post, $request ) {
 // 	$_data = $data->data;

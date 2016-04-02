@@ -407,19 +407,18 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
 
 
-
 // WTS
-// function student_data_prepare_post( $data, $post, $request ) {
-// 	$_data = $data->data;
-// 	$student = get_fields( $post );
+function student_data_prepare_post( $data, $post, $request ) {
+	$_data = $data->data;
+	$student = get_fields( $post );
 
-// 	if ($student == false) {
-// 		return;
-// 	}
+	if ($student == false) {
+		return;
+	}
 
-// 	$_data = $student;
+	$_data = $student;
 	
-// 	$data->data = $_data;
-// 	return $data;
-// }
-// add_filter( 'rest_prepare_post', 'student_data_prepare_post', 10, 3 );
+	$data->data = $_data;
+	return $data;
+}
+add_filter( 'rest_prepare_post', 'student_data_prepare_post', 10, 3 );

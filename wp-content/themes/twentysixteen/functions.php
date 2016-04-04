@@ -407,7 +407,11 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
 
 
-// WTS
+
+
+
+
+// Custom return data
 function student_data_prepare_post( $data, $post, $request ) {
 	$_data = $data->data;
 	$student = get_fields( $post );
@@ -421,4 +425,22 @@ function student_data_prepare_post( $data, $post, $request ) {
 	$data->data = $_data;
 	return $data;
 }
-add_filter( 'rest_prepare_post', 'student_data_prepare_post', 10, 3 );
+add_filter( 'rest_prepare_student_info', 'student_data_prepare_post', 10, 3 );
+
+
+// Custom Post Type
+add_action( 'init', 'create_post_type' );
+function create_post_type() {
+  register_post_type( 'student_info',
+    array(
+      'labels' => array(
+        'name' => __( 'Info' ),
+        'singular_name' => __( 'Info' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'supports' => true,
+      'show_in_rest' => true
+    )
+  );
+}

@@ -420,7 +420,10 @@ function student_data_prepare_post( $data, $post, $request ) {
 		return;
 	}
 
+	$id = $_data['slug'];
+
 	$_data = $student;
+	$_data['id'] = $id;
 	
 	$data->data = $_data;
 	return $data;
@@ -443,6 +446,7 @@ function create_post_type() {
     )
   );
   remove_post_type_support( 'student_info', 'editor' );
+  remove_post_type_support( 'student_info', 'title' );
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -459,5 +463,19 @@ function remove_admin_menu_items() {
 		unset($menu[key($menu)]);}
 	}
 }
-
 add_action('admin_menu', 'remove_admin_menu_items');
+
+
+// Unique post ID
+function change_info_default_title( $data, $postarr ) {
+	global $current_user;
+	get_currentuserinfo();
+
+	$hashraw = $current_user->user_email . $current_user->user_login;
+	$hash = hash('md5', $hashraw);
+    $data['post_title'] = $hash;
+
+    // return $post_title;
+    return $data;
+}
+add_filter( 'wp_insert_post_data', 'change_info_default_title', 10, 2 );

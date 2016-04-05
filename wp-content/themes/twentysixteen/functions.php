@@ -442,6 +442,7 @@ function create_post_type() {
       'show_in_rest' => true
     )
   );
+  remove_post_type_support( 'student_info', 'editor' );
 }
 
 /*-----------------------------------------------------------------------------------*/

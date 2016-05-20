@@ -1,4 +1,12 @@
 <?php
+// We don't need that. Please write up to date jQuery.
+add_action('wp_default_scripts', function($scripts) {
+    if (!empty( $scripts->registered['jquery'])) {
+        $jquery_dependencies = $scripts->registered['jquery']->deps;
+        $scripts->registered['jquery']->deps = array_diff($jquery_dependencies, array('jquery-migrate'));
+    }
+});
+
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
@@ -6,10 +14,6 @@ function theme_enqueue_styles() {
 
 add_action( 'admin_enqueue_scripts', 'include_custom_js' );
 function include_custom_js(){
-	wp_deregister_script('jquery');
-    wp_register_script('jquery', ("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"), false);
-    wp_enqueue_script('jquery');
-
     wp_register_script("multi_select", "/wp-content/themes/twentysixteen-child/multi-select.js", array(), NULL);
     wp_enqueue_script("multi_select");
 }

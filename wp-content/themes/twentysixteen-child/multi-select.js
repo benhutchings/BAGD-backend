@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 	$("select[multiple='multiple']").each(function(){
 	    var select = $(this),
 	    	values = {};
@@ -11,11 +11,15 @@ $(document).ready(function() {
 
 	            if(option.value == "Other"){
 	            	if (values.Other){
-	            		console.log("yes");
-		        		$("[data-field_name='other:']").removeClass('acf-conditional_logic-hide').addClass('acf-conditional_logic-show');
+		        		$("[data-field_name='other:']")
+		        			.removeClass('acf-conditional_logic-hide')
+		        			.addClass('acf-conditional_logic-show')
+		        			.find("input").prop('disabled', false);
 				    }else if (values.Other === false){
-				    	console.log("no");
-				    	$("[data-field_name='other:']").removeClass('acf-conditional_logic-show').addClass('acf-conditional_logic-hide');
+				    	$("[data-field_name='other:']")
+				    		.removeClass('acf-conditional_logic-show')
+				    		.addClass('acf-conditional_logic-hide')
+				    		.find("input").prop('disabled', false);
 				    }
 	            }
 	        });

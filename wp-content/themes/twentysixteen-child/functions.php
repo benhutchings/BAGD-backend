@@ -1,4 +1,6 @@
 <?php
+include_once("custom-fields.php");
+
 // We don't need that. Please write up to date jQuery.
 add_action('wp_default_scripts', function($scripts) {
     if (!empty( $scripts->registered['jquery'])) {

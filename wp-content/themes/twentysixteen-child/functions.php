@@ -1,4 +1,6 @@
 <?php
+include_once("custom-fields.php");
+
 // We don't need that. Please write up to date jQuery.
 add_action('wp_default_scripts', function($scripts) {
     if (!empty( $scripts->registered['jquery'])) {
@@ -29,18 +31,22 @@ function student_data_prepare_post( $data, $post, $request ) {
 	if ($student == false) {
 		return;
 	}
-
-	$id = $_data['slug'];
-	$attachment = get_post_meta(get_the_ID(), 'wp_custom_attachment', true);
-
 	$_data = $student;
-	$_data['id'] = $id;
+
+	$attachment = get_post_meta(get_the_ID(), 'wp_custom_attachment', true);
 	if ($attachment['url']){
 		$_data['cv'] = $attachment['url'];
 	}
 
-	// $data->data = $_data;
+	$_data['id'] = $student['student_number'];
 
+	$other_tags = explode(",", $_data['other:']);
+	foreach ($other_tags as &$value) {
+	    $value = trim($value);
+	}
+	$_data['tags'] = array_merge($_data['tags'], $other_tags);
+
+	unset($_data['other:']);
 	return $_data;
 }
 add_filter( 'rest_prepare_student_info', 'student_data_prepare_post', 10, 3 );
@@ -163,17 +169,14 @@ function remove_admin_menu_items() {
 }
 add_action('admin_menu', 'remove_admin_menu_items');
 
+function my_acf_update_value( $value, $post_id, $field ) {
+	$new_title = $value;
+	wp_update_post(
+		array(
+			'post_title' => $new_title
+		)
+	);
+	return $value;
+}
 
-// Unique post ID
-// function change_info_default_title( $data, $postarr ) {
-// 	global $current_user;
-// 	get_currentuserinfo();
-
-// 	$hashraw = $current_user->user_email . $current_user->user_login;
-// 	$hash = hash('md5', $hashraw);
-//     $data['post_title'] = $hash;
-
-//     // return $post_title;
-//     return $data;
-// }
-// add_filter( 'wp_insert_post_data', 'change_info_default_title', 10, 2 );
+add_filter('acf/update_value/name=name', 'my_acf_update_value', 10, 3);

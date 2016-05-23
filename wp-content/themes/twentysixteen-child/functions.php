@@ -180,3 +180,5 @@ add_action('admin_menu', 'remove_admin_menu_items');
 // }
 
 // add_filter('acf/update_value/name=name', 'my_acf_update_value', 10, 3);
+
+add_filter( 'wpmu_signup_user_notification', '__return_false' );

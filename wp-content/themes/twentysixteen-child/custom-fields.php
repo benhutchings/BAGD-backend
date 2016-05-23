@@ -227,7 +227,7 @@ if(function_exists("register_field_group"))
 						'Fine Art' => 'Fine Art',
 						'Social Media' => 'Social Media',
 						'Experiential' => 'Experiential',
-						'Personal Identity' => 'Personal Identity',
+						'Identity' => 'Identity',
 						'Problem Solving' => 'Problem Solving',
 						'Mapping' => 'Mapping',
 					),
@@ -242,6 +242,7 @@ if(function_exists("register_field_group"))
 						'Environment' => 'Environment',
 						'Technology' => 'Technology',
 						'Education' => 'Education',
+						'Society' => 'Society',
 					),
 					'Other' => array(
 						'Other' => 'Other'

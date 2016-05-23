@@ -169,14 +169,14 @@ function remove_admin_menu_items() {
 }
 add_action('admin_menu', 'remove_admin_menu_items');
 
-function my_acf_update_value( $value, $post_id, $field ) {
-	$new_title = $value;
-	wp_update_post(
-		array(
-			'post_title' => $new_title
-		)
-	);
-	return $value;
-}
+// function my_acf_update_value( $value, $post_id, $field ) {
+// 	$new_title = $value;
+// 	wp_update_post(
+// 		array(
+// 			'post_title' => $new_title
+// 		)
+// 	);
+// 	return $value;
+// }
 
-add_filter('acf/update_value/name=name', 'my_acf_update_value', 10, 3);
+// add_filter('acf/update_value/name=name', 'my_acf_update_value', 10, 3);

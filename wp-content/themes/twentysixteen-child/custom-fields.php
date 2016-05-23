@@ -17,7 +17,7 @@ if(function_exists("register_field_group"))
 				'instructions' => 'This is how your name will appear on your display in the show.',
 				'required' => 1,
 				'default_value' => '',
-				'placeholder' => 'eg Paul Rennie',
+				'placeholder' => '(eg Paul Rennie)',
 				'prepend' => '',
 				'append' => '',
 				'formatting' => 'html',
@@ -25,7 +25,7 @@ if(function_exists("register_field_group"))
 			),
 			array (
 				'key' => 'field_573f46426e81e',
-				'label' => 'Student Number',
+				'label' => 'Student ID Number',
 				'name' => 'student_number',
 				'type' => 'text',
 				'required' => 1,
@@ -48,7 +48,6 @@ if(function_exists("register_field_group"))
 					'Illustration' => 'Illustration',
 					'Moving Image' => 'Moving Image',
 					'Advertising' => 'Advertising',
-					'No route' => 'No route',
 				),
 				'default_value' => '',
 				'allow_null' => 0,
@@ -197,14 +196,14 @@ if(function_exists("register_field_group"))
 				'prepend' => '',
 				'append' => '',
 				'formatting' => 'html',
-				'maxlength' => '',
+				'maxlength' => '600',
 			),
 			array (
 				'key' => 'field_573ee16a81d30',
 				'label' => 'Tags',
 				'name' => 'tags',
 				'type' => 'select',
-				'instructions' => 'Please select as many tags as you like that fits your work.',
+				'instructions' => 'Please select a maximum of 7 tags that fits your body work best. Any more than that will be ignored.',
 				'choices' => array (
 					'Routes' => array(
 						'Illustration' => 'Illustration',
@@ -220,7 +219,7 @@ if(function_exists("register_field_group"))
 						'Print' => 'Print',
 						'Web' => 'Web',
 						'Digital Media' => 'Digital Media',
-						'Installation' => 'Intsallation',
+						'Installation' => 'Installation',
 					),
 					'Voice' => array(
 						'Social Design' => 'Social Design',

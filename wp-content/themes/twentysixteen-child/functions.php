@@ -169,14 +169,43 @@ function remove_admin_menu_items() {
 }
 add_action('admin_menu', 'remove_admin_menu_items');
 
-function my_acf_update_value( $value, $post_id, $field ) {
-	$new_title = $value;
-	wp_update_post(
-		array(
-			'post_title' => $new_title
-		)
-	);
-	return $value;
+function my_pre_save_post( $post_id ) {
+  if ( $post_id != 'new' ) {
+    return $post_id;
+    }
+    $post = array(
+        'post_status' => 'draft',
+        'post_title' => $_POST['fields']['name'],
+        'post_type' => 'student_info'
+    );  
+    $post_id = wp_insert_post($post); 
+    $_POST['return'] = add_query_arg( array('post_id' => $post_id), $_POST['return'] );    
+    return $post_id;
 }
+add_filter('acf/pre_save_post' , 'my_pre_save_post' );
 
-add_filter('acf/update_value/name=name', 'my_acf_update_value', 10, 3);
+
+function jb_update_postdata( $value, $post_id, $field ) {
+  $title = get_field('cities', $post_id). ' ' . $value;
+
+  $slug = sanitize_title( $title );
+  
+  $postdata = array(
+       'ID'          => $post_id,
+       'post_title'  => $title,
+       'post_type'   => 'student_info',
+       'post_name'   => $slug
+    );
+  
+  wp_update_post( $postdata );
+  
+  return $value;
+  
+}
+add_filter('acf/update_value/name=name', 'jb_update_postdata', 10, 3);
+
+
+/*-----------------------------------------------------------------------------------*/
+/* Don't ask me what this do */
+/*-----------------------------------------------------------------------------------*/
+add_filter( 'wpmu_signup_user_notification', '__return_false' );

@@ -203,7 +203,7 @@ if(function_exists("register_field_group"))
 				'label' => 'Tags',
 				'name' => 'tags',
 				'type' => 'select',
-				'instructions' => 'Please select as many tags as you like that fits your work.',
+				'instructions' => 'Please select a maximum of 7 tags that fits your body work best. Any more than that will be ignored.',
 				'choices' => array (
 					'Routes' => array(
 						'Illustration' => 'Illustration',

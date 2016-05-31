@@ -190,7 +190,7 @@ if(function_exists("register_field_group"))
 				'name' => 'bio',
 				'type' => 'text',
 				'instructions' => 'Please write a bit about yourself. This is meant to be an introduction to you, so perhaps write about your design practice and where you want to take it. This will not be proofread by anyone but you. <br>Typos = No job for you!',
-				'required' => 1,
+				'required' => 0,
 				'default_value' => '',
 				'placeholder' => '',
 				'prepend' => '',
@@ -290,7 +290,7 @@ if(function_exists("register_field_group"))
 				'name' => 'hero_image_video',
 				'type' => 'radio',
 				'instructions' => 'This is the image that will appear first, right below your name. We recommend you put an image that represents your project displayed in the Degree Show. This will help users make the connection to what they saw in the show.',
-				'required' => 1,
+				'required' => 0,
 				'choices' => array (
 					'Image' => 'Image',
 					'Video' => 'Video',
@@ -305,7 +305,7 @@ if(function_exists("register_field_group"))
 				'label' => 'Hero image',
 				'name' => 'hero_image',
 				'type' => 'image',
-				'required' => 1,
+				'required' => 0,
 				'conditional_logic' => array (
 					'status' => 1,
 					'rules' => array (
@@ -327,7 +327,7 @@ if(function_exists("register_field_group"))
 				'name' => 'hero_video',
 				'type' => 'text',
 				'instructions' => 'Please submit a link to your video on Youtube or Vimeo.',
-				'required' => 1,
+				'required' => 0,
 				'conditional_logic' => array (
 					'status' => 1,
 					'rules' => array (

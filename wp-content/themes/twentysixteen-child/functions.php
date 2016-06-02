@@ -61,6 +61,16 @@ function student_data_prepare_post( $data, $post, $request ) {
     }
   }
 
+  if ($_data["hero_image"] === false){
+    unset($_data["hero_image"]);
+  }
+  if ($_data["image_1"] === false){
+    unset($_data["hero_image"]);
+  }
+  if ($_data["image_2"] === false){
+    unset($_data["hero_image"]);
+  }
+
 
   // For CV upload which we are not using
 	// $attachment = get_post_meta(get_the_ID(), 'wp_custom_attachment', true);
@@ -76,6 +86,12 @@ function student_data_prepare_post( $data, $post, $request ) {
 	    $value = trim($value);
 	}
 	$_data['tags'] = array_merge($_data['tags'], $other_tags);
+
+  for ($i; $i<count($_data['tags']); $i++){
+    if ($_data['tags'][$i] == ""){
+      unset($_data['tags'][$i]);
+    }
+  }
 
 	unset($_data['other:']);
 	return $_data;

@@ -9,11 +9,13 @@ add_action('wp_default_scripts', function($scripts) {
     }
 });
 
+// import parent's style.css
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 }
 
+// import custom javascripts
 add_action( 'admin_enqueue_scripts', 'include_custom_js' );
 function include_custom_js(){
     wp_register_script("multi_select", "/wp-content/themes/twentysixteen-child/multi-select.js", array(), NULL);
@@ -31,15 +33,44 @@ function student_data_prepare_post( $data, $post, $request ) {
 	if ($student == false) {
 		return;
 	}
-	$_data = $student;
 
-	$attachment = get_post_meta(get_the_ID(), 'wp_custom_attachment', true);
-	if ($attachment['url']){
-		$_data['cv'] = $attachment['url'];
-	}
+  $_data = $student;
+
+  if ($_data["hero_image_video"] == "Image"){
+    $_data["hero_image"] = $student["hero_image"]["url"];
+    if ($student["hero_image"]["sizes"]["medium"]){
+      $_data["hero_image_medium"] = $student["hero_image"]["sizes"]["medium_large"];
+    }else{
+      $_data["hero_image_medium"] = $student["hero_image"]["url"];
+    }
+  }
+  if ($_data["image_video_1"] == "Image"){
+    $_data["image_1"] = $student["image_1"]["url"];
+    if ($student["image_1"]["sizes"]["medium"]){
+      $_data["image_1_medium"] = $student["image_1"]["sizes"]["medium_large"];
+    }else{
+      $_data["image_1_medium"] = $student["image_1"]["url"];
+    }
+  }
+  if ($_data["image_video_2"] == "Image"){
+    $_data["image_2"] = $student["image_2"]["url"];
+    if ($student["image_2"]["sizes"]["medium"]){
+      $_data["image_2_medium"] = $student["image_2"]["sizes"]["medium_large"];
+    }else{
+      $_data["image_2_medium"] = $student["image_2"]["url"];
+    }
+  }
+
+
+  // For CV upload which we are not using
+	// $attachment = get_post_meta(get_the_ID(), 'wp_custom_attachment', true);
+	// if ($attachment['url']){
+	// 	$_data['cv'] = $attachment['url'];
+	// }
 
 	$_data['id'] = $student['student_number'];
 
+  // Parse other field into tags
 	$other_tags = explode(",", $_data['other:']);
 	foreach ($other_tags as &$value) {
 	    $value = trim($value);
@@ -177,9 +208,9 @@ function my_pre_save_post( $post_id ) {
         'post_status' => 'draft',
         'post_title' => $_POST['fields']['name'],
         'post_type' => 'student_info'
-    );  
-    $post_id = wp_insert_post($post); 
-    $_POST['return'] = add_query_arg( array('post_id' => $post_id), $_POST['return'] );    
+    );
+    $post_id = wp_insert_post($post);
+    $_POST['return'] = add_query_arg( array('post_id' => $post_id), $_POST['return'] );
     return $post_id;
 }
 add_filter('acf/pre_save_post' , 'my_pre_save_post' );
@@ -189,18 +220,18 @@ function jb_update_postdata( $value, $post_id, $field ) {
   $title = get_field('cities', $post_id). ' ' . $value;
 
   $slug = sanitize_title( $title );
-  
+
   $postdata = array(
        'ID'          => $post_id,
        'post_title'  => $title,
        'post_type'   => 'student_info',
        'post_name'   => $slug
     );
-  
+
   wp_update_post( $postdata );
-  
+
   return $value;
-  
+
 }
 add_filter('acf/update_value/name=name', 'jb_update_postdata', 10, 3);
 

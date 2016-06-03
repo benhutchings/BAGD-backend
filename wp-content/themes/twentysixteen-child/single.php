@@ -69,6 +69,9 @@ get_header(); ?>
 		</ul>
 		</p>
 
+		<p>
+		Question: <?php the_field("question") ?>
+		</p>
 		<div id="gallery">
 			<h3>Gallery</h3>
 

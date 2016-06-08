@@ -65,10 +65,10 @@ function student_data_prepare_post( $data, $post, $request ) {
     unset($_data["hero_image"]);
   }
   if ($_data["image_1"] === false){
-    unset($_data["hero_image"]);
+    unset($_data["image_1"]);
   }
   if ($_data["image_2"] === false){
-    unset($_data["hero_image"]);
+    unset($_data["image_2"]);
   }
 
 
